@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.crimsonsn0w</groupId>
+	<artifactId>java-11-base-image</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1</version>
+
+	<name>Java Base Image</name>
+	<description>Thin Java Base Image</description>
+
+	<organization>
+		<name>сrimsonsn0w</name>
+	</organization>
+
+	<properties>
+		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<docker.repo>maxiko</docker.repo>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>${dockerfile-maven-version}</version>
+				<configuration>
+					<repository>${docker.repo}/${project.artifactId}</repository>
+				</configuration>
+				<executions>
+					<execution>
+						<id>tag-latest</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>tag</goal>
+<!--							<goal>push</goal>-->
+						</goals>
+						<configuration>
+							<tag>jdk11</tag>
+						</configuration>
+					</execution>
+					<execution>
+						<id>tag-version</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>tag</goal>
+<!--							<goal>push</goal>-->
+						</goals>
+						<configuration>
+							<tag>${project.version}</tag>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
